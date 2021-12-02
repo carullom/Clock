@@ -34,10 +34,12 @@ function Clock({country, timezone}){
          const [secondSecond, setSecondSecond] = useState(defaultTime.secondSecond);
          //second
          const [firstMinute, setFirstMinute] = useState(defaultTime.firstMinute);
-         const [secondMinute, setSecondMinute] = useState(defaultTime.secondMinute)
+         const [secondMinute, setSecondMinute] = useState(defaultTime.secondMinute);
           //second
           const [firstHour, setFirstHour] = useState(defaultTime.firstHour);
-          const [secondHour, setSecondHour] = useState(defaultTime.secondHour)
+          const [secondHour, setSecondHour] = useState(defaultTime.secondHour);
+          const [firstMove, setFirstMove] = useState('');
+          const [secondMove, setSecondMove] = useState('');
 
         useEffect(() => {
            const interval = setInterval(() => {
@@ -46,17 +48,29 @@ function Clock({country, timezone}){
                 
                 const d = new Date(time);
                 
-                      
-                setFirstSecond(defaultTime.firstSecond);
-                if (secondSecond !== defaultTime.secondSecond) {
-                    setSecondSecond(defaultTime.secondSecond)
-                };
+                if (firstSecond !== defaultTime.firstSecond){
+                    setFirstMove('move');
+                    setTimeout(() => {
+                      setFirstSecond(defaultTime.firstSecond);
+                    }, 800);
+                   }else{
+                    setFirstMove('');
+                }      
+            
+                 setSecondSecond(defaultTime.secondSecond)
+                
                 
                 if(firstMinute !== defaultTime.firstMinute) {
                     setFirstMinute(defaultTime.firstMinute)
                 };        
                 if (secondMinute !== defaultTime.secondMinute){
-                    setSecondMinute(defaultTime.secondMinute)
+                  setSecondMove('move');
+                    setTimeout(() => {
+                      setSecondMinute(defaultTime.secondMinute)
+                    }, 800);
+                   }else{
+                    setSecondMove('');
+                   
                 };
                 
                 if(firstHour !== defaultTime.firstHour){
@@ -89,13 +103,13 @@ function Clock({country, timezone}){
                 <div class="number">{firstMinute}</div>
               </div>
               <div class="second">
-                <div class="number">{secondMinute}</div>
+                <div class={'number ' +secondMove}>{secondMinute}</div>
               </div>
             </div>
             <div class="tick">:</div>
             <div class="seconds">
               <div class="first">
-                <div class="number">{firstSecond}</div>
+                <div class={'number ' +firstMove}>{firstSecond}</div>
               </div>
               <div class="second infinite">
                 <div class="number">{secondSecond}</div>
